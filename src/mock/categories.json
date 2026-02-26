@@ -1,0 +1,11 @@
+[
+  { "id": "cakes", "name": "Torte" },
+  { "id": "cookies", "name": "Kolačići" },
+  { "id": "crescent-rolls", "name": "Kifle" },
+  { "id": "pies", "name": "Pite i strudla" },
+  { "id": "bread", "name": "Hleb i pecivo" },
+  { "id": "donuts", "name": "Krofne" },
+  { "id": "tarts", "name": "Tartalete" },
+  { "id": "seasonal", "name": "Sezonske posebnosti" },
+  { "id": "gift-boxes", "name": "Poklon kutije" }
+]
