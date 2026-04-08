@@ -166,9 +166,9 @@ export function AdminRecipesPage() {
   return (
     <>
       <SEOHead title={t('adminPanel.recipes')} />
-      <div className="p-6 max-w-5xl">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-warm-900">{t('adminPanel.recipes')}</h1>
+      <div className="p-4 sm:p-6 max-w-5xl">
+        <div className="flex items-center justify-between mb-6 gap-3">
+          <h1 className="text-xl sm:text-2xl font-bold text-warm-900">{t('adminPanel.recipes')}</h1>
           <Button onClick={openCreate}>{t('adminPanel.addRecipe')}</Button>
         </div>
 
@@ -187,31 +187,33 @@ export function AdminRecipesPage() {
           <p className="text-warm-500 py-8 text-center">{t('menu.noResults')}</p>
         ) : (
           <div className="bg-white rounded-2xl border border-warm-100 overflow-hidden">
-            <table className="w-full text-sm">
-              <thead className="bg-warm-50 border-b border-warm-100">
-                <tr>
-                  <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.recipeName')}</th>
-                  <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.price')}</th>
-                  <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.folder')}</th>
-                  <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.ingredientCount')}</th>
-                  <th className="text-right px-4 py-3 font-medium text-warm-600">{t('adminPanel.actions')}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-warm-50">
-                {filtered.map(recipe => (
-                  <tr key={recipe.id} className="hover:bg-warm-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-warm-900">{recipe.name}</td>
-                    <td className="px-4 py-3 text-warm-700">{formatPrice(recipe.pricePerKg, i18n.language)}/kg</td>
-                    <td className="px-4 py-3 text-warm-600">{folders.find(f => f.id === recipe.folderId)?.name || '—'}</td>
-                    <td className="px-4 py-3 text-warm-600">{recipe.ingredients.length}</td>
-                    <td className="px-4 py-3 text-right space-x-2">
-                      <button onClick={() => openEdit(recipe)} className="text-primary-600 hover:text-primary-700 font-medium">{t('common.edit')}</button>
-                      <button onClick={() => setDeleteTarget(recipe)} className="text-red-600 hover:text-red-700 font-medium">{t('common.delete')}</button>
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-warm-50 border-b border-warm-100">
+                  <tr>
+                    <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.recipeName')}</th>
+                    <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.price')}</th>
+                    <th className="text-left px-4 py-3 font-medium text-warm-600 hidden sm:table-cell">{t('adminPanel.folder')}</th>
+                    <th className="text-left px-4 py-3 font-medium text-warm-600 hidden sm:table-cell">{t('adminPanel.ingredientCount')}</th>
+                    <th className="text-right px-4 py-3 font-medium text-warm-600">{t('adminPanel.actions')}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-warm-50">
+                  {filtered.map(recipe => (
+                    <tr key={recipe.id} className="hover:bg-warm-50 transition-colors">
+                      <td className="px-4 py-3 font-medium text-warm-900">{recipe.name}</td>
+                      <td className="px-4 py-3 text-warm-700">{formatPrice(recipe.pricePerKg, i18n.language)}/kg</td>
+                      <td className="px-4 py-3 text-warm-600 hidden sm:table-cell">{folders.find(f => f.id === recipe.folderId)?.name || '—'}</td>
+                      <td className="px-4 py-3 text-warm-600 hidden sm:table-cell">{recipe.ingredients.length}</td>
+                      <td className="px-4 py-3 text-right space-x-2">
+                        <button onClick={() => openEdit(recipe)} className="text-primary-600 hover:text-primary-700 font-medium">{t('common.edit')}</button>
+                        <button onClick={() => setDeleteTarget(recipe)} className="text-red-600 hover:text-red-700 font-medium">{t('common.delete')}</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>

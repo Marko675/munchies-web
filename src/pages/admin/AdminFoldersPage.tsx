@@ -108,9 +108,9 @@ export function AdminFoldersPage() {
   return (
     <>
       <SEOHead title={t('adminPanel.folders')} />
-      <div className="p-6 max-w-3xl">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-warm-900">{t('adminPanel.folders')}</h1>
+      <div className="p-4 sm:p-6 max-w-3xl">
+        <div className="flex items-center justify-between mb-6 gap-3">
+          <h1 className="text-xl sm:text-2xl font-bold text-warm-900">{t('adminPanel.folders')}</h1>
           <Button onClick={openCreate}>{t('adminPanel.addFolder')}</Button>
         </div>
 
@@ -122,35 +122,37 @@ export function AdminFoldersPage() {
           <p className="text-warm-500 py-8 text-center">{t('adminPanel.noFolders')}</p>
         ) : (
           <div className="bg-white rounded-2xl border border-warm-100 overflow-hidden">
-            <table className="w-full text-sm">
-              <thead className="bg-warm-50 border-b border-warm-100">
-                <tr>
-                  <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.folderName')}</th>
-                  <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.recipeCount')}</th>
-                  <th className="text-right px-4 py-3 font-medium text-warm-600">{t('adminPanel.actions')}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-warm-50">
-                {folders.map(folder => (
-                  <tr key={folder.id} className="hover:bg-warm-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-warm-900">{folder.name}</td>
-                    <td className="px-4 py-3 text-warm-600">{folder.recipeCount}</td>
-                    <td className="px-4 py-3 text-right space-x-2">
-                      <button onClick={() => openEdit(folder)} className="text-primary-600 hover:text-primary-700 font-medium">{t('common.edit')}</button>
-                      <button onClick={() => setDeleteTarget(folder)} className="text-red-600 hover:text-red-700 font-medium">{t('common.delete')}</button>
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-warm-50 border-b border-warm-100">
+                  <tr>
+                    <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.folderName')}</th>
+                    <th className="text-left px-4 py-3 font-medium text-warm-600 hidden sm:table-cell">{t('adminPanel.recipeCount')}</th>
+                    <th className="text-right px-4 py-3 font-medium text-warm-600">{t('adminPanel.actions')}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-warm-50">
+                  {folders.map(folder => (
+                    <tr key={folder.id} className="hover:bg-warm-50 transition-colors">
+                      <td className="px-4 py-3 font-medium text-warm-900">{folder.name}</td>
+                      <td className="px-4 py-3 text-warm-600 hidden sm:table-cell">{folder.recipeCount}</td>
+                      <td className="px-4 py-3 text-right space-x-2 whitespace-nowrap">
+                        <button onClick={() => openEdit(folder)} className="text-primary-600 hover:text-primary-700 font-medium">{t('common.edit')}</button>
+                        <button onClick={() => setDeleteTarget(folder)} className="text-red-600 hover:text-red-700 font-medium">{t('common.delete')}</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>
 
       {/* Folder form modal */}
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <form onSubmit={handleSave} className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <form onSubmit={handleSave} className="bg-white rounded-2xl shadow-xl w-full max-w-md">
             <div className="flex items-center justify-between px-6 py-4 border-b border-warm-100">
               <h2 className="text-lg font-semibold text-warm-900">
                 {editing ? t('adminPanel.editFolder') : t('adminPanel.addFolder')}

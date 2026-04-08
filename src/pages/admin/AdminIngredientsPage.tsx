@@ -102,9 +102,9 @@ export function AdminIngredientsPage() {
     return (
         <>
             <SEOHead title={t('adminPanel.ingredients')} />
-            <div className="p-6 max-w-5xl">
-                <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-bold text-warm-900">{t('adminPanel.ingredients')} Catalog</h1>
+            <div className="p-4 sm:p-6 max-w-5xl">
+                <div className="flex items-center justify-between mb-6 gap-3">
+                    <h1 className="text-xl sm:text-2xl font-bold text-warm-900">{t('adminPanel.ingredients')} Catalog</h1>
                 </div>
 
                 <Input
@@ -122,29 +122,31 @@ export function AdminIngredientsPage() {
                     <p className="text-warm-500 py-8 text-center">{t('menu.noResults')}</p>
                 ) : (
                     <div className="bg-white rounded-2xl border border-warm-100 overflow-hidden">
-                        <table className="w-full text-sm">
-                            <thead className="bg-warm-50 border-b border-warm-100">
-                                <tr>
-                                    <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.ingredientName')}</th>
-                                    <th className="text-left px-4 py-3 font-medium text-warm-600">Category</th>
-                                    <th className="text-left px-4 py-3 font-medium text-warm-600">ID</th>
-                                    <th className="text-right px-4 py-3 font-medium text-warm-600">{t('adminPanel.actions')}</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-warm-50">
-                                {filtered.map(ing => (
-                                    <tr key={ing.id} className="hover:bg-warm-50 transition-colors">
-                                        <td className="px-4 py-3 font-medium text-warm-900">{ing.name}</td>
-                                        <td className="px-4 py-3 text-warm-600">{ing.category || '—'}</td>
-                                        <td className="px-4 py-3 text-warm-400 font-mono text-xs">{ing.id.split('-')[0]}</td>
-                                        <td className="px-4 py-3 text-right space-x-3">
-                                            <button onClick={() => openEdit(ing)} className="text-primary-600 hover:text-primary-700 font-medium">{t('common.edit')}</button>
-                                            <button onClick={() => openMerge(ing)} className="text-orange-600 hover:text-orange-700 font-medium">Merge</button>
-                                        </td>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                                <thead className="bg-warm-50 border-b border-warm-100">
+                                    <tr>
+                                        <th className="text-left px-4 py-3 font-medium text-warm-600">{t('adminPanel.ingredientName')}</th>
+                                        <th className="text-left px-4 py-3 font-medium text-warm-600 hidden sm:table-cell">Category</th>
+                                        <th className="text-left px-4 py-3 font-medium text-warm-600 hidden md:table-cell">ID</th>
+                                        <th className="text-right px-4 py-3 font-medium text-warm-600">{t('adminPanel.actions')}</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-warm-50">
+                                    {filtered.map(ing => (
+                                        <tr key={ing.id} className="hover:bg-warm-50 transition-colors">
+                                            <td className="px-4 py-3 font-medium text-warm-900">{ing.name}</td>
+                                            <td className="px-4 py-3 text-warm-600 hidden sm:table-cell">{ing.category || '—'}</td>
+                                            <td className="px-4 py-3 text-warm-400 font-mono text-xs hidden md:table-cell">{ing.id.split('-')[0]}</td>
+                                            <td className="px-4 py-3 text-right space-x-3 whitespace-nowrap">
+                                                <button onClick={() => openEdit(ing)} className="text-primary-600 hover:text-primary-700 font-medium">{t('common.edit')}</button>
+                                                <button onClick={() => openMerge(ing)} className="text-orange-600 hover:text-orange-700 font-medium">Merge</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 )}
             </div>

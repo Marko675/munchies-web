@@ -86,9 +86,9 @@ export function AdminOrdersPage() {
   return (
     <>
       <SEOHead title={t('adminPanel.orders')} />
-      <div className="p-6 max-w-5xl">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-warm-900">{t('adminPanel.orders')}</h1>
+      <div className="p-4 sm:p-6 max-w-5xl">
+        <div className="flex items-center justify-between mb-6 gap-3">
+          <h1 className="text-xl sm:text-2xl font-bold text-warm-900">{t('adminPanel.orders')}</h1>
           <Button variant="ghost" onClick={loadData}>{t('common.retry')}</Button>
         </div>
 
@@ -103,10 +103,10 @@ export function AdminOrdersPage() {
             {orders.map(order => (
               <div key={order.id} className="bg-white rounded-2xl border border-warm-100 overflow-hidden">
                 <div
-                  className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-warm-50 transition-colors"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 py-4 cursor-pointer hover:bg-warm-50 transition-colors"
                   onClick={() => setExpandedId(expandedId === order.id ? null : order.id)}
                 >
-                  <div className="flex items-center gap-4 min-w-0">
+                  <div className="flex items-center gap-3 min-w-0">
                     <div className="min-w-0">
                       <p className="font-semibold text-warm-900 truncate">{order.customerName}</p>
                       <p className="text-xs text-warm-500">{formatDate(order.createdAt, i18n.language)}</p>
@@ -120,9 +120,9 @@ export function AdminOrdersPage() {
                 </div>
 
                 {expandedId === order.id && (
-                  <div className="px-5 pb-5 border-t border-warm-100 pt-4 space-y-4">
+                  <div className="px-4 sm:px-5 pb-5 border-t border-warm-100 pt-4 space-y-4">
                     {/* Customer info */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-sm">
                       {order.customerEmail && (
                         <div>
                           <p className="text-warm-500">{t('auth.email')}</p>

@@ -68,9 +68,9 @@ export function AdminTasksPage() {
   return (
     <>
       <SEOHead title={t('adminPanel.tasks')} />
-      <div className="p-6 max-w-5xl">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-warm-900">{t('adminPanel.tasks')}</h1>
+      <div className="p-4 sm:p-6 max-w-5xl">
+        <div className="flex items-center justify-between mb-6 gap-3">
+          <h1 className="text-xl sm:text-2xl font-bold text-warm-900">{t('adminPanel.tasks')}</h1>
         </div>
 
         {loading ? (
@@ -84,7 +84,7 @@ export function AdminTasksPage() {
             {tasks.map(task => (
               <div key={task.id} className="bg-white rounded-2xl border border-warm-100 overflow-hidden">
                 <div
-                  className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-warm-50 transition-colors"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 py-4 cursor-pointer hover:bg-warm-50 transition-colors"
                   onClick={() => setExpandedId(expandedId === task.id ? null : task.id)}
                 >
                   <div className="min-w-0">
@@ -99,7 +99,7 @@ export function AdminTasksPage() {
                 </div>
 
                 {expandedId === task.id && (
-                  <div className="px-5 pb-5 border-t border-warm-100 pt-4 space-y-4">
+                  <div className="px-4 sm:px-5 pb-5 border-t border-warm-100 pt-4 space-y-4">
                     {task.notes && (
                       <div className="text-sm">
                         <p className="text-warm-500">{t('adminPanel.notes')}</p>
