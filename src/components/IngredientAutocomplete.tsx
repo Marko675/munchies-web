@@ -144,7 +144,7 @@ export function IngredientAutocomplete({ value, catalogIngredientId, onChange, p
                             )}
                         </button>
                     ))}
-                    {!exactMatch && (
+                    {!exactMatch && !catalogIngredientId && (
                         <button
                             type="button"
                             onClick={createNewIngredient}

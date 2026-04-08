@@ -22,6 +22,7 @@ const NotFoundPage = lazy(() => import('@/pages/NotFoundPage').then((m) => ({ de
 
 // Admin pages
 const AdminRecipesPage = lazy(() => import('@/pages/admin/AdminRecipesPage').then((m) => ({ default: m.AdminRecipesPage })))
+const AdminIngredientsPage = lazy(() => import('@/pages/admin/AdminIngredientsPage').then((m) => ({ default: m.AdminIngredientsPage })))
 const AdminFoldersPage = lazy(() => import('@/pages/admin/AdminFoldersPage').then((m) => ({ default: m.AdminFoldersPage })))
 const AdminOrdersPage = lazy(() => import('@/pages/admin/AdminOrdersPage').then((m) => ({ default: m.AdminOrdersPage })))
 const AdminTasksPage = lazy(() => import('@/pages/admin/AdminTasksPage').then((m) => ({ default: m.AdminTasksPage })))
@@ -75,6 +76,7 @@ export function AppRoutes() {
           }
         >
           <Route path="/admin/recipes" element={<AdminRecipesPage />} />
+          <Route path="/admin/ingredients" element={<AdminIngredientsPage />} />
           <Route path="/admin/folders" element={<AdminFoldersPage />} />
           <Route path="/admin/orders" element={<AdminOrdersPage />} />
           <Route path="/admin/tasks" element={<AdminTasksPage />} />

@@ -5,6 +5,7 @@ import { clsx } from 'clsx'
 
 const adminNavItems = [
   { to: '/admin/recipes', icon: '📋', labelKey: 'adminPanel.recipes' },
+  { to: '/admin/ingredients', icon: '🥕', labelKey: 'adminPanel.ingredients' },
   { to: '/admin/folders', icon: '📁', labelKey: 'adminPanel.folders' },
   { to: '/admin/orders', icon: '📦', labelKey: 'adminPanel.orders' },
   { to: '/admin/tasks', icon: '✅', labelKey: 'adminPanel.tasks' },
