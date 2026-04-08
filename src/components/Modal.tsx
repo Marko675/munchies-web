@@ -12,6 +12,7 @@ interface ModalProps {
   cancelLabel?: string
   variant?: 'danger' | 'primary'
   loading?: boolean
+  confirmDisabled?: boolean
   children?: React.ReactNode
 }
 
@@ -25,6 +26,7 @@ export function Modal({
   cancelLabel = 'Otkaži',
   variant = 'danger',
   loading = false,
+  confirmDisabled = false,
   children,
 }: ModalProps) {
   return (
@@ -75,6 +77,7 @@ export function Modal({
                       variant={variant}
                       onClick={onConfirm}
                       loading={loading}
+                      disabled={confirmDisabled || loading}
                     >
                       {confirmLabel}
                     </Button>

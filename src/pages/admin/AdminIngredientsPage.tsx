@@ -61,7 +61,7 @@ export function AdminIngredientsPage() {
 
         setSavingConfig(true)
         try {
-            await apiClient.put(`/api/ingredients/${editing.id}`, { name: formName.trim(), category: formCategory.trim() || undefined })
+            await apiClient.put(`/api/ingredients/${editing.id}`, { name: formName.trim(), category: formCategory.trim() || null })
             toast.success(t('common.saved'))
             setEditing(null)
             await loadData()
