@@ -92,12 +92,12 @@ export const useAuthStore = create<AuthState & AuthActions>()(
         }
       },
 
-      changePassword: async (data) => {
+      changePassword: async () => {
         const { user } = get()
         if (!user) throw new Error('Niste prijavljeni')
         set({ isLoading: true, error: null })
         try {
-          await authService.changePassword(user.id, data.currentPassword, data.newPassword)
+          await authService.changePassword()
           set({ isLoading: false })
         } catch (err) {
           const message = err instanceof Error ? err.message : 'Greška pri promeni lozinke'

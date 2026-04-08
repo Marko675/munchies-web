@@ -27,7 +27,7 @@ export function ResetPasswordPage() {
     setEmailError('')
     setIsLoading(true)
     try {
-      await authService.resetPassword(email)
+      await authService.resetPassword()
       setSubmitted(true)
       toast.success(t('auth.resetEmailSent'))
     } catch {
