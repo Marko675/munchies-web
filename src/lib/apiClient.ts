@@ -23,8 +23,8 @@ function headers(): HeadersInit {
 async function handleResponse<T>(res: Response): Promise<T> {
     if (!res.ok) {
         const body = await res.json().catch(() => ({ error: 'Network error' }))
-        const errorMessage = (body as any).error
-            ? `HTTP ${res.status}: ${(body as any).error}`
+        const errorMessage = (body as { error?: string })?.error
+            ? `HTTP ${res.status}: ${(body as { error?: string }).error}`
             : `HTTP ${res.status}`
         throw new Error(errorMessage)
     }

@@ -6,11 +6,14 @@ import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Modal } from '@/components/Modal'
 import { SEOHead } from '@/components/SEOHead'
+import { IngredientAutocomplete } from '@/components/IngredientAutocomplete'
 import toast from 'react-hot-toast'
 
 interface Ingredient {
   id: string
   name: string
+  catalogIngredientId?: string
+  customName?: string
   quantity: number
   unit: string
 }
@@ -76,7 +79,7 @@ export function AdminRecipesPage() {
     setFormPrice('')
     setFormImage('')
     setFormFolder('')
-    setFormIngredients([{ id: generateId(), name: '', quantity: 0, unit: 'g' }])
+    setFormIngredients([{ id: generateId(), name: '', quantity: 0, unit: 'g', catalogIngredientId: undefined, customName: undefined }])
     setShowForm(true)
   }
 
@@ -88,13 +91,13 @@ export function AdminRecipesPage() {
     setFormFolder(recipe.folderId || '')
     setFormIngredients(recipe.ingredients.length > 0
       ? recipe.ingredients.map(i => ({ ...i }))
-      : [{ id: generateId(), name: '', quantity: 0, unit: 'g' }]
+      : [{ id: generateId(), name: '', quantity: 0, unit: 'g', catalogIngredientId: undefined, customName: undefined }]
     )
     setShowForm(true)
   }
 
   function addIngredient() {
-    setFormIngredients(prev => [...prev, { id: generateId(), name: '', quantity: 0, unit: 'g' }])
+    setFormIngredients(prev => [...prev, { id: generateId(), name: '', quantity: 0, unit: 'g', catalogIngredientId: undefined, customName: undefined }])
   }
 
   function removeIngredient(id: string) {
@@ -118,7 +121,14 @@ export function AdminRecipesPage() {
         imagePath: formImage.trim() || undefined,
         pricePerKg: parseFloat(formPrice),
         folderId: formFolder || undefined,
-        ingredients: ingredients.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, unit: i.unit })),
+        ingredients: ingredients.map(i => ({
+          id: i.id,
+          name: i.name,
+          catalogIngredientId: i.catalogIngredientId,
+          customName: i.customName,
+          quantity: i.quantity,
+          unit: i.unit
+        })),
         updatedAt: now,
       }
 
@@ -245,12 +255,23 @@ export function AdminRecipesPage() {
                 <div className="space-y-2">
                   {formIngredients.map(ing => (
                     <div key={ing.id} className="flex gap-2 items-center">
-                      <input
-                        placeholder={t('adminPanel.ingredientName')}
-                        value={ing.name}
-                        onChange={e => updateIngredient(ing.id, 'name', e.target.value)}
-                        className="flex-1 rounded-xl border border-warm-300 bg-white text-warm-900 px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                      />
+                      <div className="flex-1">
+                        <IngredientAutocomplete
+                          value={ing.name}
+                          catalogIngredientId={ing.catalogIngredientId}
+                          onChange={({ customName, catalogIngredientId, fallbackName }) => {
+                            setFormIngredients(prev => prev.map(i =>
+                              i.id === ing.id ? {
+                                ...i,
+                                name: fallbackName || i.name,
+                                customName: customName,
+                                catalogIngredientId: catalogIngredientId
+                              } : i
+                            ))
+                          }}
+                          placeholder={t('adminPanel.ingredientName')}
+                        />
+                      </div>
                       <input
                         type="number"
                         placeholder={t('adminPanel.qty')}

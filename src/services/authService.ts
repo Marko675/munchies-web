@@ -46,7 +46,7 @@ export const authService = {
     return { token: res.token, user: mapBackendUser(res.user) }
   },
 
-  async resetPassword(_email: string): Promise<void> {
+  async resetPassword(): Promise<void> {
     // Backend does not support password reset yet — no-op
   },
 
@@ -63,12 +63,12 @@ export const authService = {
     }
   },
 
-  async changePassword(_userId: string, _currentPassword: string, _newPassword: string): Promise<void> {
+  async changePassword(): Promise<void> {
     // Backend doesn't have a change-password endpoint yet
     throw new Error('Promena lozinke nije dostupna.')
   },
 
-  async getCurrentUser(_token: string): Promise<User> {
+  async getCurrentUser(): Promise<User> {
     const data = await apiClient.get<BackendUser>('/api/auth/me')
     return mapBackendUser(data)
   },
